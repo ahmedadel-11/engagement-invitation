@@ -1,0 +1,16 @@
+{
+  "name": "ahmed-manar-engagement",
+  "version": "1.0.0",
+  "description": "Ahmed & Manar Engagement Ceremony Website",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@vercel/kv": "^1.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

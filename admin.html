@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin - Guest Messages | Ahmed & Manar</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #8B7355;
+            --secondary-color: #C4A77D;
+            --accent-color: #D4AF37;
+            --text-dark: #2D2D2D;
+            --text-light: #6B6B6B;
+            --bg-cream: #FDF8F3;
+            --bg-soft: #F5EDE4;
+            --white: #FFFFFF;
+            --danger: #E74C3C;
+            --success: #27AE60;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--white);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(139, 115, 85, 0.15);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-card h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .login-card p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #E8E0D8;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .login-card input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(139, 115, 85, 0.3);
+        }
+
+        .login-error {
+            color: var(--danger);
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .admin-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+
+        .admin-header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .admin-header .stats {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn, .back-btn {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover, .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .admin-content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--white);
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box i {
+            color: var(--text-light);
+            margin-right: 10px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            width: 100%;
+        }
+
+        .refresh-btn {
+            background: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .messages-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .message-item {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(139, 115, 85, 0.08);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 15px;
+            align-items: start;
+            transition: all 0.3s ease;
+        }
+
+        .message-item:hover {
+            box-shadow: 0 8px 30px rgba(139, 115, 85, 0.12);
+        }
+
+        .message-content {
+            min-width: 0;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .message-header .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .message-header .date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            background: var(--bg-soft);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .message-text {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .delete-btn:hover {
+            background: rgba(231, 76, 60, 0.1);
+            opacity: 1;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+        }
+
+        .loading i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Export Button */
+        .export-btn {
+            background: var(--success);
+            color: var(--white);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-btn:hover {
+            background: #219a52;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-header {
+                padding: 20px;
+            }
+
+            .admin-header h1 {
+                font-size: 1.2rem;
+            }
+
+            .admin-content {
+                padding: 20px;
+            }
+
+            .message-item {
+                grid-template-columns: 1fr;
+            }
+
+            .message-actions {
+                justify-content: flex-end;
+            }
+
+            .admin-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <h1><i class="fas fa-lock"></i> Admin Access</h1>
+            <p>Enter password to view guest messages</p>
+            <form id="loginForm">
+                <input type="password" id="passwordInput" placeholder="Enter admin password" required>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            <p class="login-error" id="loginError">
+                <i class="fas fa-exclamation-circle"></i> Incorrect password
+            </p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard">
+        <header class="admin-header">
+            <h1><i class="fas fa-heart"></i> Guest Messages - Ahmed & Manar</h1>
+            <div class="admin-header-actions">
+                <span class="stats" id="messageCount">
+                    <i class="fas fa-envelope"></i> <span>0</span> messages
+                </span>
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Site
+                </a>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <div class="admin-toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search messages...">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="export-btn" onclick="exportMessages()">
+                        <i class="fas fa-download"></i> Export CSV
+                    </button>
+                    <button class="refresh-btn" onclick="loadMessages()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="messages-list" id="messagesList">
+                <div class="loading">
+                    <i class="fas fa-spinner"></i>
+                    <p>Loading messages...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Configuration
+        const API_URL = '/api/messages';
+        let adminPassword = '';
+        let allMessages = [];
+
+        // DOM Elements
+        const loginScreen = document.getElementById('loginScreen');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+        const messagesList = document.getElementById('messagesList');
+        const messageCount = document.getElementById('messageCount');
+        const searchInput = document.getElementById('searchInput');
+        const toast = document.getElementById('toast');
+
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn')) {
+            adminPassword = sessionStorage.getItem('adminPassword');
+            showDashboard();
+        }
+
+        // Login Form Handler
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('passwordInput').value;
+            
+            // Store password and try to load messages
+            adminPassword = password;
+            
+            try {
+                // Test the password by trying to access messages
+                const response = await fetch(API_URL);
+                if (response.ok) {
+                    sessionStorage.setItem('adminLoggedIn', 'true');
+                    sessionStorage.setItem('adminPassword', password);
+                    showDashboard();
+                } else {
+                    showLoginError();
+                }
+            } catch (error) {
+                // If API fails, still allow login for viewing localStorage messages
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                sessionStorage.setItem('adminPassword', password);
+                showDashboard();
+            }
+        });
+
+        function showLoginError() {
+            loginError.style.display = 'block';
+            document.getElementById('passwordInput').value = '';
+        }
+
+        function showDashboard() {
+            loginScreen.style.display = 'none';
+            adminDashboard.style.display = 'block';
+            loadMessages();
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('adminPassword');
+            adminPassword = '';
+            loginScreen.style.display = 'flex';
+            adminDashboard.style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+            loginError.style.display = 'none';
+        }
+
+        // Load Messages
+        async function loadMessages() {
+            messagesList.innerHTML = `
+                <div class="loading">
+                    <i class="fas fa-spinner"></i>
+                    <p>Loading messages...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (data.success) {
+                    allMessages = data.messages || [];
+                } else {
+                    // Fallback to localStorage
+                    allMessages = JSON.parse(localStorage.getItem('engagementWishes') || '[]');
+                }
+            } catch (error) {
+                console.log('API not available, using localStorage');
+                allMessages = JSON.parse(localStorage.getItem('engagementWishes') || '[]');
+            }
+
+            renderMessages(allMessages);
+        }
+
+        // Render Messages
+        function renderMessages(messages) {
+            messageCount.querySelector('span').textContent = messages.length;
+
+            if (messages.length === 0) {
+                messagesList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No Messages Yet</h3>
+                        <p>Guest wishes will appear here once they submit them.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            messagesList.innerHTML = messages.map(msg => `
+                <div class="message-item" data-id="${msg.id || msg.date}">
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="name"><i class="fas fa-user-circle"></i> ${escapeHtml(msg.name)}</span>
+                            <span class="date">${formatDate(msg.date)}</span>
+                        </div>
+                        <p class="message-text">"${escapeHtml(msg.message)}"</p>
+                    </div>
+                    <div class="message-actions">
+                        <button class="delete-btn" onclick="deleteMessage('${msg.id || msg.date}')" title="Delete message">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search Messages
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allMessages.filter(msg => 
+                msg.name.toLowerCase().includes(query) || 
+                msg.message.toLowerCase().includes(query)
+            );
+            renderMessages(filtered);
+        });
+
+        // Delete Message
+        async function deleteMessage(id) {
+            if (!confirm('Are you sure you want to delete this message?')) return;
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${adminPassword}`
+                    },
+                    body: JSON.stringify({ id })
+                });
+
+                if (response.ok) {
+                    showToast('Message deleted successfully', 'success');
+                    loadMessages();
+                } else {
+                    // Fallback to localStorage delete
+                    deleteFromLocalStorage(id);
+                }
+            } catch (error) {
+                // Fallback to localStorage delete
+                deleteFromLocalStorage(id);
+            }
+        }
+
+        function deleteFromLocalStorage(id) {
+            let messages = JSON.parse(localStorage.getItem('engagementWishes') || '[]');
+            messages = messages.filter(msg => (msg.id || msg.date) !== id);
+            localStorage.setItem('engagementWishes', JSON.stringify(messages));
+            showToast('Message deleted successfully', 'success');
+            loadMessages();
+        }
+
+        // Export Messages to CSV
+        function exportMessages() {
+            if (allMessages.length === 0) {
+                showToast('No messages to export', 'error');
+                return;
+            }
+
+            const headers = ['Name', 'Message', 'Date'];
+            const csvContent = [
+                headers.join(','),
+                ...allMessages.map(msg => 
+                    `"${msg.name.replace(/"/g, '""')}","${msg.message.replace(/"/g, '""')}","${formatDate(msg.date)}"`
+                )
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `engagement_wishes_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+
+            showToast('Messages exported successfully', 'success');
+        }
+
+        // Utility Functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function showToast(message, type = '') {
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
