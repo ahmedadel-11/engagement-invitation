@@ -446,6 +446,7 @@ body {
     font-size: clamp(1.1rem, 3vw, 1.4rem);
     color: var(--text-dark);
     margin-top: 30px;
+    margin-bottom: 60px;
     line-height: 1.9;
     animation: fadeInUp 1s ease 0.8s forwards;
     opacity: 0;
@@ -468,21 +469,24 @@ body {
    ============================================= */
 .scroll-indicator {
     position: absolute;
-    bottom: 40px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     animation: bounce 2s infinite;
     cursor: pointer;
+    z-index: 10;
 }
 
 .scroll-indicator i {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--secondary-color);
     transition: var(--transition-smooth);
+    opacity: 0.7;
 }
 
 .scroll-indicator:hover i {
     color: var(--primary-color);
+    opacity: 1;
 }
 
 /* =============================================
