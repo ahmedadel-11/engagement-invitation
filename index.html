@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ahmed & Manar Engagement Ceremony - January 30, 2026">
+    <meta name="description" content="Ahmed & Manar Engagement Ceremony - January 30, 2026 | حفل خطوبة أحمد ومنار">
     <meta name="theme-color" content="#8B7355">
     
-    <title>Ahmed & Manar - Engagement Ceremony</title>
+    <title>Ahmed & Manar - Engagement Ceremony | أحمد ومنار</title>
+    
+    <!-- Open Graph / WhatsApp Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="💍 Ahmed & Manar Engagement | حفل خطوبة أحمد ومنار">
+    <meta property="og:description" content="You're invited to our engagement ceremony - January 30, 2026 | ندعوكم لحضور حفل خطوبتنا">
+    <meta property="og:image" content="https://engagement-invitation-git-main-ahmed-adels-projects-7bd7ffda.vercel.app/images/preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://engagement-invitation-git-main-ahmed-adels-projects-7bd7ffda.vercel.app">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="💍 Ahmed & Manar Engagement">
+    <meta name="twitter:description" content="You're invited to our engagement ceremony - January 30, 2026">
+    <meta name="twitter:image" content="https://engagement-invitation-git-main-ahmed-adels-projects-7bd7ffda.vercel.app/images/preview.jpg">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
@@ -14,7 +29,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,6 +38,21 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Background Music -->
+    <audio id="bgMusic" preload="auto">
+        <source src="music/song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Control Button -->
+    <button class="music-control" id="musicControl" title="Toggle Music">
+        <i class="fas fa-volume-mute" id="musicIcon"></i>
+    </button>
+
+    <!-- Language Toggle Button -->
+    <button class="language-toggle" id="langToggle" title="تغيير اللغة / Change Language">
+        <span id="langText">ع</span>
+    </button>
+
     <!-- Page Loader -->
     <div class="page-loader" id="pageLoader">
         <div class="loader-content">
@@ -35,51 +65,51 @@
     <section class="hero">
         <div class="hero-content">
             <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-            <p class="islamic-text">In The Name of Allah, The Most Beneficent and The Most Merciful</p>
+            <p class="islamic-text" data-en="In The Name of Allah, The Most Beneficent and The Most Merciful" data-ar="بسم الله الرحمن الرحيم">In The Name of Allah, The Most Beneficent and The Most Merciful</p>
             
-            <p class="invitation-text">Please Join Us To Celebrate</p>
+            <p class="invitation-text" data-en="Please Join Us To Celebrate" data-ar="يسعدنا دعوتكم لحضور">Please Join Us To Celebrate</p>
             
-            <h2 class="ceremony-title">Engagement Ceremony</h2>
+            <h2 class="ceremony-title" data-en="Engagement Ceremony" data-ar="حفل الخطوبة">Engagement Ceremony</h2>
             
-            <p class="of-text">Of</p>
+            <p class="of-text" data-en="Of" data-ar="للعروسين">Of</p>
             
             <div class="couple-names">
-                <h1>Ahmed</h1>
+                <h1 data-en="Ahmed" data-ar="أحمد">Ahmed</h1>
                 <span class="ampersand">&</span>
-                <h1>Manar</h1>
+                <h1 data-en="Manar" data-ar="منار">Manar</h1>
             </div>
 
             <div class="rings"></div>
 
             <div class="date-section">
                 <div class="date-block">
-                    <div class="date-label">Month</div>
-                    <div class="date-value">January</div>
+                    <div class="date-label" data-en="Month" data-ar="الشهر">Month</div>
+                    <div class="date-value" data-en="January" data-ar="يناير">January</div>
                 </div>
                 
                 <div class="date-divider"></div>
                 
                 <div class="date-block main-date">
-                    <div class="date-label">The Date</div>
-                    <div class="date-value day-number">30<span class="date-suffix">th</span></div>
-                    <div class="date-weekday">Friday</div>
+                    <div class="date-label" data-en="The Date" data-ar="التاريخ">The Date</div>
+                    <div class="date-value day-number">30<span class="date-suffix" data-en="th" data-ar=""></span></div>
+                    <div class="date-weekday" data-en="Friday" data-ar="الجمعة">Friday</div>
                 </div>
                 
                 <div class="date-divider"></div>
                 
                 <div class="date-block">
-                    <div class="date-label">Year</div>
+                    <div class="date-label" data-en="Year" data-ar="السنة">Year</div>
                     <div class="date-value">2026</div>
                     <div class="date-time-display">
                         <i class="fas fa-clock"></i>
-                        <span>7:00 PM</span>
+                        <span data-en="7:00 PM" data-ar="٧:٠٠ مساءً">7:00 PM</span>
                     </div>
                 </div>
             </div>
 
             <div class="venue">
-                <p><i class="fas fa-map-marker-alt"></i> Diamond Hotel</p>
-                <p>10th of Ramadan City</p>
+                <p><i class="fas fa-map-marker-alt"></i> <span data-en="Diamond Hotel" data-ar="فندق دايموند">Diamond Hotel</span></p>
+                <p data-en="10th of Ramadan City" data-ar="مدينة العاشر من رمضان">10th of Ramadan City</p>
             </div>
         </div>
 
@@ -91,26 +121,26 @@
     <!-- Countdown Section -->
     <section class="countdown-section">
         <div class="reveal">
-            <h2 class="section-title">Counting Down</h2>
-            <p class="section-subtitle">TO OUR SPECIAL DAY</p>
+            <h2 class="section-title" data-en="Counting Down" data-ar="العد التنازلي">Counting Down</h2>
+            <p class="section-subtitle" data-en="TO OUR SPECIAL DAY" data-ar="ليومنا المميز">TO OUR SPECIAL DAY</p>
         </div>
         
         <div class="countdown-container reveal">
             <div class="countdown-item">
                 <span class="countdown-number" id="days">00</span>
-                <span class="countdown-label">DAYS</span>
+                <span class="countdown-label" data-en="DAYS" data-ar="يوم">DAYS</span>
             </div>
             <div class="countdown-item">
                 <span class="countdown-number" id="hours">00</span>
-                <span class="countdown-label">HOURS</span>
+                <span class="countdown-label" data-en="HOURS" data-ar="ساعة">HOURS</span>
             </div>
             <div class="countdown-item">
                 <span class="countdown-number" id="minutes">00</span>
-                <span class="countdown-label">MINUTES</span>
+                <span class="countdown-label" data-en="MINUTES" data-ar="دقيقة">MINUTES</span>
             </div>
             <div class="countdown-item">
                 <span class="countdown-number" id="seconds">00</span>
-                <span class="countdown-label">SECONDS</span>
+                <span class="countdown-label" data-en="SECONDS" data-ar="ثانية">SECONDS</span>
             </div>
         </div>
     </section>
@@ -118,16 +148,16 @@
     <!-- Location Section -->
     <section class="location-section">
         <div class="reveal">
-            <h2 class="section-title">Location</h2>
-            <p class="section-subtitle">WHERE TO FIND US</p>
+            <h2 class="section-title" data-en="Location" data-ar="الموقع">Location</h2>
+            <p class="section-subtitle" data-en="WHERE TO FIND US" data-ar="أين تجدونا">WHERE TO FIND US</p>
         </div>
         
         <div class="location-details reveal">
-            <h3>Diamond Hotel</h3>
-            <p>We can't wait to celebrate with you!</p>
+            <h3 data-en="Diamond Hotel" data-ar="فندق دايموند">Diamond Hotel</h3>
+            <p data-en="We can't wait to celebrate with you!" data-ar="لا نستطيع الانتظار للاحتفال معكم!">We can't wait to celebrate with you!</p>
             <div class="address">
                 <i class="fas fa-map-marker-alt"></i>
-                <span>10th of Ramadan City, Egypt</span>
+                <span data-en="10th of Ramadan City, Egypt" data-ar="مدينة العاشر من رمضان، مصر">10th of Ramadan City, Egypt</span>
             </div>
         </div>
 
@@ -143,27 +173,29 @@
 
         <a href="https://maps.app.goo.gl/gKiUKoRBAcCZwM1E9" target="_blank" rel="noopener noreferrer" class="directions-btn reveal">
             <i class="fas fa-directions"></i>
-            Get Directions
+            <span data-en="Get Directions" data-ar="احصل على الاتجاهات">Get Directions</span>
         </a>
     </section>
 
     <!-- Message Section -->
     <section class="message-section">
         <div class="reveal">
-            <h2 class="section-title">Send Your Wishes</h2>
-            <p class="section-subtitle">LEAVE US A MESSAGE</p>
+            <h2 class="section-title" data-en="Send Your Wishes" data-ar="أرسل تهانيك">Send Your Wishes</h2>
+            <p class="section-subtitle" data-en="LEAVE US A MESSAGE" data-ar="اترك لنا رسالة">LEAVE US A MESSAGE</p>
         </div>
         
         <div class="message-form reveal">
             <form id="wishForm">
                 <div class="form-group">
                     <label for="guestName">
-                        <i class="fas fa-user"></i> Your Name
+                        <i class="fas fa-user"></i> <span data-en="Your Name" data-ar="اسمك">Your Name</span>
                     </label>
                     <input 
                         type="text" 
                         id="guestName" 
                         name="guestName" 
+                        data-placeholder-en="Enter your name"
+                        data-placeholder-ar="أدخل اسمك"
                         placeholder="Enter your name" 
                         required
                         autocomplete="name">
@@ -171,27 +203,29 @@
                 
                 <div class="form-group">
                     <label for="guestMessage">
-                        <i class="fas fa-heart"></i> Your Message
+                        <i class="fas fa-heart"></i> <span data-en="Your Message" data-ar="رسالتك">Your Message</span>
                     </label>
                     <textarea 
                         id="guestMessage" 
                         name="guestMessage" 
+                        data-placeholder-en="Write your wishes for the couple..."
+                        data-placeholder-ar="اكتب تهانيك للعروسين..."
                         placeholder="Write your wishes for the couple..." 
                         required></textarea>
                 </div>
                 
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane"></i> Send Wishes
+                    <i class="fas fa-paper-plane"></i> <span data-en="Send Wishes" data-ar="إرسال التهاني">Send Wishes</span>
                 </button>
             </form>
             
             <div class="success-message" id="successMessage">
-                <i class="fas fa-check-circle"></i> Thank you for your lovely wishes! 💕
+                <i class="fas fa-check-circle"></i> <span data-en="Thank you for your lovely wishes!" data-ar="شكراً لتهانيكم الجميلة!">Thank you for your lovely wishes!</span> 💕
             </div>
         </div>
 
         <div class="messages-display reveal">
-            <h3>Wishes from Our Guests</h3>
+            <h3 data-en="Wishes from Our Guests" data-ar="تهاني من ضيوفنا">Wishes from Our Guests</h3>
             <div class="messages-grid" id="messagesGrid">
                 <!-- Messages will be dynamically loaded here -->
             </div>
@@ -201,9 +235,10 @@
     <!-- Footer -->
     <footer class="footer">
         <p class="couple-footer">Ahmed & Manar</p>
+        <p class="couple-footer-ar">أحمد ومنار</p>
         <div class="hearts">💍 💕 💍</div>
-        <p>We can't wait to celebrate with you!</p>
-        <p class="footer-date">January 30, 2026</p>
+        <p data-en="We can't wait to celebrate with you!" data-ar="لا نستطيع الانتظار للاحتفال معكم!">We can't wait to celebrate with you!</p>
+        <p class="footer-date" data-en="January 30, 2026" data-ar="٣٠ يناير ٢٠٢٦">January 30, 2026</p>
     </footer>
 
     <!-- Main JavaScript -->

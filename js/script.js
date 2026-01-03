@@ -10,6 +10,11 @@ const pageLoader = document.getElementById('pageLoader');
 const wishForm = document.getElementById('wishForm');
 const messagesGrid = document.getElementById('messagesGrid');
 const successMessage = document.getElementById('successMessage');
+const bgMusic = document.getElementById('bgMusic');
+const musicControl = document.getElementById('musicControl');
+const musicIcon = document.getElementById('musicIcon');
+const langToggle = document.getElementById('langToggle');
+const langText = document.getElementById('langText');
 
 // =============================================
 // Configuration
@@ -19,8 +24,119 @@ const CONFIG = {
     loaderDelay: 1500,
     successMessageDuration: 3000,
     storageKey: 'engagementWishes',
-    apiUrl: '/api/messages'
+    apiUrl: '/api/messages',
+    musicStartTime: 10,  // Start at 10 seconds
+    musicEndTime: 44     // End at 44 seconds
 };
+
+// =============================================
+// Language System
+// =============================================
+let currentLang = localStorage.getItem('preferredLang') || 'en';
+
+function initLanguageSystem() {
+    // Set initial language
+    setLanguage(currentLang);
+    
+    // Toggle language on button click
+    if (langToggle) {
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(currentLang);
+            localStorage.setItem('preferredLang', currentLang);
+        });
+    }
+}
+
+function setLanguage(lang) {
+    const html = document.documentElement;
+    
+    if (lang === 'ar') {
+        html.setAttribute('dir', 'rtl');
+        html.setAttribute('lang', 'ar');
+        if (langText) langText.textContent = 'En';
+    } else {
+        html.setAttribute('dir', 'ltr');
+        html.setAttribute('lang', 'en');
+        if (langText) langText.textContent = 'ع';
+    }
+    
+    // Update all translatable elements
+    document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+    });
+    
+    // Update placeholders
+    document.querySelectorAll('[data-placeholder-en][data-placeholder-ar]').forEach(el => {
+        el.placeholder = el.getAttribute(`data-placeholder-${lang}`);
+    });
+}
+
+// =============================================
+// Music System
+// =============================================
+let isMusicPlaying = false;
+
+function initMusicSystem() {
+    if (!bgMusic || !musicControl) return;
+    
+    // Set initial time and volume
+    bgMusic.currentTime = CONFIG.musicStartTime;
+    bgMusic.volume = 0.5;
+    
+    // Handle time updates to loop between 10-44 seconds
+    bgMusic.addEventListener('timeupdate', () => {
+        if (bgMusic.currentTime >= CONFIG.musicEndTime) {
+            bgMusic.currentTime = CONFIG.musicStartTime;
+        }
+    });
+    
+    // Music control button
+    musicControl.addEventListener('click', toggleMusic);
+    
+    // Try to autoplay on first user interaction
+    document.addEventListener('click', tryAutoplay, { once: true });
+    document.addEventListener('touchstart', tryAutoplay, { once: true });
+    document.addEventListener('scroll', tryAutoplay, { once: true });
+}
+
+function tryAutoplay() {
+    if (!isMusicPlaying && bgMusic) {
+        bgMusic.currentTime = CONFIG.musicStartTime;
+        bgMusic.play().then(() => {
+            isMusicPlaying = true;
+            updateMusicIcon();
+        }).catch(() => {
+            // Autoplay blocked, user needs to click music button
+        });
+    }
+}
+
+function toggleMusic() {
+    if (!bgMusic) return;
+    
+    if (isMusicPlaying) {
+        bgMusic.pause();
+        isMusicPlaying = false;
+    } else {
+        bgMusic.currentTime = CONFIG.musicStartTime;
+        bgMusic.play();
+        isMusicPlaying = true;
+    }
+    updateMusicIcon();
+}
+
+function updateMusicIcon() {
+    if (!musicIcon || !musicControl) return;
+    
+    if (isMusicPlaying) {
+        musicIcon.className = 'fas fa-volume-up';
+        musicControl.classList.add('playing');
+    } else {
+        musicIcon.className = 'fas fa-volume-mute';
+        musicControl.classList.remove('playing');
+    }
+}
 
 // =============================================
 // Page Loader
@@ -303,6 +419,8 @@ function initTouchSupport() {
 // =============================================
 function init() {
     initPageLoader();
+    initLanguageSystem();
+    initMusicSystem();
     initScrollReveal();
     initCountdown();
     initMessagesSystem();
