@@ -33,23 +33,28 @@ git push -u origin main
 3. Import your GitHub repository
 4. Click "Deploy"
 
-### Step 3: Set Up Vercel KV (Database for Messages)
+### Step 3: Set Up Neon Postgres (Free Database for Messages)
 
 1. In your Vercel dashboard, go to your project
-2. Click on "Storage" tab
-3. Click "Create Database" → Select "KV"
-4. Name it (e.g., "engagement-messages")
-5. Click "Create"
-6. Vercel will automatically add the KV environment variables
+2. Click on **"Storage"** tab
+3. Click **"Neon"** from the Marketplace
+4. Click **"Create"** to create a new Neon database
+5. Name it (e.g., `engagement-db`)
+6. Select a region close to your users (e.g., `aws-eu-central-1` for Middle East/Europe)
+7. Click **"Create"**
+8. Vercel will **automatically** add `DATABASE_URL` to your environment variables
 
-### Step 4: Set Admin Password
+### Step 4: Add Admin Password to Vercel
 
-1. In Vercel dashboard, go to "Settings" → "Environment Variables"
-2. Add a new variable:
-   - Name: `ADMIN_PASSWORD`
-   - Value: Your secure password (e.g., `Ahmed&Manar2026`)
+1. In Vercel dashboard, go to **"Settings"** → **"Environment Variables"**
+2. Add this variable:
+
+   | Name | Value |
+   |------|-------|
+   | `ADMIN_PASSWORD` | Your secure password (e.g., `Ahmed&Manar2026`) |
+
 3. Click "Save"
-4. Redeploy your project for changes to take effect
+4. **Redeploy** your project for changes to take effect
 
 ## Accessing Admin Panel
 
@@ -93,8 +98,8 @@ vercel dev
 
 ## Notes
 
-- Messages are stored in Vercel KV (Redis)
-- If KV is not configured, messages fall back to localStorage
+- Messages are stored in Neon Postgres (free tier: 0.5 GB storage)
+- If database is not configured, the API will return an error
 - Admin panel works offline with localStorage data
 - The admin password is required only for deleting messages
 

@@ -1,9 +1,7 @@
 // Vercel Serverless Function for handling messages
-// Uses Vercel KV (Redis) for storage
+// Uses Neon Postgres for storage (Free tier available)
 
-import { kv } from '@vercel/kv';
-
-const MESSAGES_KEY = 'engagement_wishes';
+import { neon } from '@neondatabase/serverless';
 
 export default async function handler(req, res) {
     // Enable CORS
@@ -16,10 +14,27 @@ export default async function handler(req, res) {
     }
 
     try {
+        // Initialize Neon connection
+        const sql = neon(process.env.DATABASE_URL);
+
+        // Ensure table exists
+        await sql`
+            CREATE TABLE IF NOT EXISTS messages (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                message TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `;
+
         // GET - Retrieve all messages
         if (req.method === 'GET') {
-            const messages = await kv.get(MESSAGES_KEY) || [];
-            return res.status(200).json({ success: true, messages });
+            const rows = await sql`
+                SELECT id, name, message, created_at as date 
+                FROM messages 
+                ORDER BY created_at DESC
+            `;
+            return res.status(200).json({ success: true, messages: rows });
         }
 
         // POST - Add a new message
@@ -33,25 +48,15 @@ export default async function handler(req, res) {
                 });
             }
 
-            // Get existing messages
-            const messages = await kv.get(MESSAGES_KEY) || [];
-
-            // Add new message
-            const newMessage = {
-                id: Date.now().toString(),
-                name: name.trim(),
-                message: message.trim(),
-                date: new Date().toISOString()
-            };
-
-            messages.unshift(newMessage);
-
-            // Save to KV store
-            await kv.set(MESSAGES_KEY, messages);
+            const rows = await sql`
+                INSERT INTO messages (name, message)
+                VALUES (${name.trim()}, ${message.trim()})
+                RETURNING id, name, message, created_at as date
+            `;
 
             return res.status(201).json({ 
                 success: true, 
-                message: newMessage 
+                message: rows[0] 
             });
         }
 
@@ -75,10 +80,7 @@ export default async function handler(req, res) {
                 });
             }
 
-            const messages = await kv.get(MESSAGES_KEY) || [];
-            const filteredMessages = messages.filter(msg => msg.id !== id);
-            
-            await kv.set(MESSAGES_KEY, filteredMessages);
+            await sql`DELETE FROM messages WHERE id = ${id}`;
 
             return res.status(200).json({ 
                 success: true, 
