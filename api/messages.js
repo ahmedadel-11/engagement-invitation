@@ -13,6 +13,14 @@ export default async function handler(req, res) {
         return res.status(200).end();
     }
 
+    // Check if DATABASE_URL is configured
+    if (!process.env.DATABASE_URL) {
+        return res.status(500).json({ 
+            success: false, 
+            error: 'DATABASE_URL not configured. Please add Neon database in Vercel Storage.' 
+        });
+    }
+
     try {
         // Initialize Neon connection
         const sql = neon(process.env.DATABASE_URL);
@@ -97,7 +105,7 @@ export default async function handler(req, res) {
         console.error('API Error:', error);
         return res.status(500).json({ 
             success: false, 
-            error: 'Internal server error' 
+            error: error.message || 'Database connection error'
         });
     }
 }

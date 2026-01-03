@@ -523,24 +523,31 @@
             try {
                 // Test the password by trying to access messages
                 const response = await fetch(API_URL);
-                if (response.ok) {
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
                     sessionStorage.setItem('adminLoggedIn', 'true');
                     sessionStorage.setItem('adminPassword', password);
                     showDashboard();
                 } else {
-                    showLoginError();
+                    // API returned error - show database error
+                    showDatabaseError(data.error || 'Database connection failed');
                 }
             } catch (error) {
-                // If API fails, still allow login for viewing localStorage messages
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                sessionStorage.setItem('adminPassword', password);
-                showDashboard();
+                // Network error - show connection error
+                showDatabaseError('Cannot connect to server. Check your deployment.');
             }
         });
 
         function showLoginError() {
             loginError.style.display = 'block';
+            loginError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Incorrect password';
             document.getElementById('passwordInput').value = '';
+        }
+
+        function showDatabaseError(msg) {
+            loginError.style.display = 'block';
+            loginError.innerHTML = '<i class="fas fa-database"></i> ' + msg + '<br><small>Check Vercel logs for details</small>';
         }
 
         function showDashboard() {
