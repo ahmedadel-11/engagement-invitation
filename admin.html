@@ -363,32 +363,138 @@
         /* Responsive */
         @media (max-width: 768px) {
             .admin-header {
-                padding: 20px;
+                padding: 15px;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
             }
 
             .admin-header h1 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+                width: 100%;
+            }
+
+            .admin-header-actions {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .admin-header .stats {
+                font-size: 0.8rem;
+                padding: 6px 15px;
+            }
+
+            .logout-btn, .back-btn {
+                padding: 8px 15px;
+                font-size: 0.8rem;
             }
 
             .admin-content {
-                padding: 20px;
+                padding: 15px;
             }
 
             .message-item {
                 grid-template-columns: 1fr;
+                padding: 15px;
+            }
+
+            .message-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .message-header .name {
+                font-size: 1rem;
+            }
+
+            .message-header .date {
+                font-size: 0.7rem;
+            }
+
+            .message-text {
+                font-size: 0.9rem;
             }
 
             .message-actions {
                 justify-content: flex-end;
+                margin-top: 10px;
             }
 
             .admin-toolbar {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 10px;
             }
 
             .search-box {
                 max-width: none;
+                padding: 8px 15px;
+            }
+
+            .search-box input {
+                font-size: 0.85rem;
+            }
+
+            .refresh-btn,
+            .export-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+            }
+
+            .login-card {
+                padding: 30px 20px;
+                margin: 15px;
+            }
+
+            .login-card h1 {
+                font-size: 1.5rem;
+            }
+
+            .login-card input {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+
+            .login-btn {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            .empty-state {
+                padding: 40px 15px;
+            }
+
+            .empty-state i {
+                font-size: 3rem;
+            }
+
+            .empty-state h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-header h1 {
+                font-size: 1rem;
+            }
+
+            .admin-header h1 i {
+                display: none;
+            }
+
+            .message-item {
+                padding: 12px;
+            }
+
+            .toast {
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
+                text-align: center;
             }
         }
 
