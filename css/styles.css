@@ -237,12 +237,28 @@ body {
     font-size: clamp(0.85rem, 2.5vw, 1.1rem);
     font-style: italic;
     color: var(--text-light);
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     max-width: 450px;
     margin-left: auto;
     margin-right: auto;
     animation: fadeInUp 1s ease 0.2s forwards;
     opacity: 0;
+}
+
+/* Romantic Arabic Poetry Verse */
+.romantic-verse {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--primary-color);
+    margin-bottom: 35px;
+    text-align: center;
+    animation: fadeInUp 1.2s ease 0.4s forwards;
+    opacity: 0;
+}
+
+.romantic-verse .verse-line {
+    margin: 5px 0;
+    line-height: 1.8;
 }
 
 .invitation-text {
