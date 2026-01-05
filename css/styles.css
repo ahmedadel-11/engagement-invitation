@@ -946,6 +946,34 @@ body {
     letter-spacing: 2px;
 }
 
+.created-by {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    font-size: 0.9rem;
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+}
+
+.created-by a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+}
+
+.created-by a:hover {
+    color: var(--secondary-color);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
 /* =============================================
    Responsive Design - Tablet
    ============================================= */
