@@ -20,7 +20,7 @@ const langText = document.getElementById('langText');
 // Configuration
 // =============================================
 const CONFIG = {
-    eventDate: new Date('January 30, 2026 19:00:00'),
+    eventDate: new Date('January 30, 2026 18:00:00'),
     loaderDelay: 1500,
     successMessageDuration: 3000,
     storageKey: 'engagementWishes',
